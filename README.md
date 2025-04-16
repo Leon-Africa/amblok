@@ -19,8 +19,8 @@ Before running the project, ensure you have the following installed on your syst
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-repo/blockchain-tx-processor.git
-cd blockchain-tx-processor
+git clone https://github.com/Leon-Africa/amblok.git
+cd amblok
 ```
 
 Replace `your_alchemy_api_key_here` Alchemy API key in [kafka_producer.py](https://github.com/Leon-Africa/amblok/blob/38994b50ebc0b28fc7ef59df7f7d5b11d880ecfe/kafka_producer.py#L15) and [kafka_consumer.py](https://github.com/Leon-Africa/amblok/blob/38994b50ebc0b28fc7ef59df7f7d5b11d880ecfe/kafka_consumer.py#L50)
