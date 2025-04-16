@@ -4,7 +4,7 @@ from confluent_kafka import Producer
 
 # Configuration for Kafka Producer
 kafka_config = {
-    'bootstrap.servers': 'localhost:9092',
+    'bootstrap.servers': 'kafka:9092',
     'client.id': 'crypto-transaction-producer'
 }
 producer = Producer(kafka_config)

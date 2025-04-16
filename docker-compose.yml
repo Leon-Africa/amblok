@@ -16,7 +16,8 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092  
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092          
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     ports:
       - "9092:9092"
@@ -27,6 +28,18 @@ services:
     depends_on:
       - kafka
     environment:
-      - ALCHEMY_API_KEY=your_key_here
+      KAFKA_BROKER: kafka:9092
     links:
       - kafka
+    command: ["kafka_producer_alchemy.py"]  
+
+  consumer:
+    build:
+      context: .
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_BROKER: kafka:9092
+    links:
+      - kafka
+    command: ["kafka_consumer.py"]  

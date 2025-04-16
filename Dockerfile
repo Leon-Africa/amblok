@@ -13,5 +13,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Make port 9092 available to the world outside this container
 EXPOSE 9092
 
-# Run the Kafka producer script
-CMD ["python", "kafka_producer_alchemy.py"]
+# Set the entrypoint to Python
+ENTRYPOINT ["python"]
