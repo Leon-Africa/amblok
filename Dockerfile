@@ -10,6 +10,9 @@ COPY . /app
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Ensure the .env file is included
+COPY .env /app/.env
+
 # Make port 9092 available to the world outside this container
 EXPOSE 9092
 
