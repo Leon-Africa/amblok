@@ -2,7 +2,7 @@ import time
 import psycopg2
 from psycopg2 import OperationalError
 from confluent_kafka import Consumer
-from web3 import Web3 
+from web3 import Web3
 
 # Function to connect to PostgreSQL with retries
 def connect_to_db():
@@ -52,7 +52,14 @@ GAS_THRESHOLD = 21000
 
 # Function to decode transaction details and classify gas usage
 def process_transaction(tx_hash):
+    global conn, cursor
     try:
+        # Reconnect to the database if the connection is lost
+        if conn.closed != 0:
+            print("Database connection lost. Reconnecting...")
+            conn = connect_to_db()
+            cursor = conn.cursor()
+
         # Fetch transaction details using the hash
         tx = w3.eth.get_transaction(tx_hash)
         gas = tx.get('gas', 0)
@@ -74,20 +81,26 @@ def process_transaction(tx_hash):
 print(f"Listening to Kafka topic: {topic}")
 try:
     while True:
-        message = consumer.poll(1.0)
+        message = consumer.poll(1.0)  # Poll Kafka for new messages
         if message is None:
             continue
         if message.error():
             print(f"Error: {message.error()}")
             continue
 
-        # Decode the transaction hash as a plain string
+        # Decode and validate the transaction hash
         try:
-            tx_hash = message.value().decode('utf-8')  # No JSON parsing, just decode the string
+            # Decode transaction hash from the Kafka message
+            tx_hash = message.value().decode('utf-8')
+
+            # Validate that tx_hash is a proper Ethereum transaction hash
+            if not tx_hash.startswith('0x') or len(tx_hash) != 66:
+                raise ValueError(f"Invalid transaction hash: {tx_hash}")
+
             print(f"Processing transaction: {tx_hash}")
-            process_transaction(tx_hash)
+            process_transaction(tx_hash)  # Process the validated transaction hash
         except Exception as e:
-            print(f"Error decoding transaction message: {e}")
+            print(f"Error decoding or validating transaction message: {e}")
 
 except KeyboardInterrupt:
     print("Stopped by user")

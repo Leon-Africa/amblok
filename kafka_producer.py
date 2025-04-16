@@ -33,10 +33,16 @@ def fetch_transactions_from_alchemy():
         return []
 
 # Function to produce messages to Kafka
+# def produce_to_kafka(transactions):
+#     for transaction in transactions:
+#         producer.produce(topic, key=transaction['hash'], value=str(transaction))
+#         print(f"Produced transaction: {transaction['hash']}")
+
 def produce_to_kafka(transactions):
     for transaction in transactions:
-        producer.produce(topic, key=transaction['hash'], value=str(transaction))
-        print(f"Produced transaction: {transaction['hash']}")
+        tx_hash = transaction['hash']  # Extract only the hash
+        producer.produce(topic, key=tx_hash, value=tx_hash)
+        print(f"Produced transaction: {tx_hash}")
 
 # Main loop to fetch and produce data
 while True:
