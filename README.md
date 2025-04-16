@@ -28,7 +28,7 @@ Replace `your_alchemy_api_key_here` Alchemy API key in [kafka_producer.py](https
 ### 2. Build and Start the Services
 Use Docker Compose to build and start the services:
 ```bash
-docker-compose up --build --no-cache
+docker compose up --build --no-cache
 ```
 
 This command will start the following services:
@@ -41,7 +41,7 @@ This command will start the following services:
 ### 4. Verify the Services
 - Check the logs for the producer:
   ```bash
-  docker-compose logs -f producer
+  docker compose logs -f producer
   ```
   You should see logs like:
   ```
@@ -50,7 +50,7 @@ This command will start the following services:
 
 - Check the logs for the consumer:
   ```bash
-  docker-compose logs -f consumer
+  docker compose logs -f consumer
   ```
   You should see logs like:
   ```
@@ -94,7 +94,7 @@ Below is a table representing the transaction analysis data:
 ### 6. Stop the Services
 To stop all running services cleanly:
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ## Project Workflow
