@@ -12,7 +12,7 @@ topic = 'crypto_transactions'
 
 # Function to fetch data from Alchemy API
 def fetch_transactions_from_alchemy():
-    alchemy_api_url = 'https://eth-mainnet.alchemyapi.io/v2/your_key_here'
+    alchemy_api_url = 'https://eth-mainnet.alchemyapi.io/v2/your_alchemy_api_key_here'
     params = {
         'method': 'alchemy_getAssetTransfers',
         'params': [

@@ -47,7 +47,7 @@ topic = 'crypto_transactions'
 consumer.subscribe([topic])
 
 # Ethereum Configuration
-w3 = Web3(Web3.HTTPProvider('https://eth-mainnet.alchemyapi.io/v2/your_key_here'))
+w3 = Web3(Web3.HTTPProvider('https://eth-mainnet.alchemyapi.io/v2/your_alchemy_api_key_here'))
 GAS_THRESHOLD = 21000
 
 # Function to decode transaction details and classify gas usage
